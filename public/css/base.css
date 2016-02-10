@@ -60,3 +60,9 @@ p, ul {
 ul {
   padding-left: 30px;
 }
+
+.container-outer { overflow: scroll; }
+
+.nav-margin-left {
+  margin-left: 10px;
+}

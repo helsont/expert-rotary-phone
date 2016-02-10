@@ -1,14 +1,32 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only. Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+
+var App = React.createClass({
+
+  render: function() {
+    return (
+      <div>
+        <NavBar />
+
+        <div className="row">
+          <ListWrapper listName="LEADS" />
+          <ListWrapper listName="IN PROGRESS" />
+          <ListWrapper listName="SCHEDULED" />
+          <ListWrapper listName="DONE" />
+        </div>
+      </div>
+    );
+  }
+});
+
+var ListWrapper = React.createClass({
+  render: function() {
+    return (
+      <div className="col s3">
+        <h4>{this.props.listName}</h4>
+        <List />
+      </div>
+    );
+  }
+})
 
 var Comment = React.createClass({
   rawMarkup: function() {
@@ -25,6 +43,68 @@ var Comment = React.createClass({
         <span dangerouslySetInnerHTML={this.rawMarkup()} />
       </div>
     );
+  }
+});
+
+var List = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <Card />
+        <Card />
+
+      </div>
+    );
+  }
+});
+
+var Card = React.createClass({
+  componentDidMount: function() {
+    // When the component is added, turn it into a modal
+
+    $(this.refs.root).draggable();
+  },
+  getInitialState: function() {
+    return {
+      number: '917-555-555',
+      firstName: 'Jane',
+      lastName: 'Smith',
+      lastMessage: 'Thanks, I look forward to your response.',
+      date: 'Yesterday at 5:39pm'
+    };
+  },
+  render: function() {
+    return (
+      <div className="card cyan lighten-3" ref="root">
+        <div className="card-content white-text">
+          <span className="card-title">{this.state.firstName} {this.state.lastName}</span>
+          <p>{this.state.lastMessage}</p>
+          <p>{this.state.date}</p>
+        </div>
+        <div className="card-action">
+          <a href="#" className="light-blue-text">Open</a>
+          <a href="#" className="light-blue-text">Manage</a>
+        </div>
+      </div>
+    );
+  }
+})
+
+var NavBar = React.createClass({
+  render: function() {
+    return (
+
+      <nav>
+        <div className="nav-wrapper light-blue darken-4">
+          <a href="#" className="brand-logo nav-margin-left"> Riley</a>
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <li><a href="#">Message Center</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Ali Ahmadizadeh</a></li>
+          </ul>
+        </div>
+      </nav>
+    )
   }
 });
 
@@ -81,6 +161,16 @@ var CommentBox = React.createClass({
     );
   }
 });
+
+var Static = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <h1>Yo</h1>
+      </div>
+    );
+  }
+})
 
 var CommentList = React.createClass({
   render: function() {
@@ -140,7 +230,24 @@ var CommentForm = React.createClass({
   }
 });
 
+var LikeButton = React.createClass({
+  getInitialState: function() {
+    return {liked: false};
+  },
+  handleClick: function(event) {
+    this.setState({liked: !this.state.liked});
+  },
+  render: function() {
+    var text = this.state.liked ? 'like' : 'haven\'t liked';
+    return (
+      <button onClick={this.handleClick}>
+        You {text} this. Click to toggle.
+      </button>
+    );
+  }
+});
+
 ReactDOM.render(
-  <CommentBox url="/api/comments" pollInterval={2000} />,
-  document.getElementById('content')
+  <App />,
+  document.getElementById('main')
 );
