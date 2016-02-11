@@ -1,68 +1,67 @@
-body {
-  background: #fff;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.7;
-  margin: 0;
-  padding: 30px;
+.thread-list {
+
 }
 
-a {
-  color: #4183c4;
-  text-decoration: none;
+.left-side {
+    background-color: blue;
+    float: none;
+    display: table-cell;
+    border: 1px solid;
 }
 
-a:hover {
-  text-decoration: underline;
+.right-side {
+    background-color: red;
+    float: none;
+    display: table-cell;
+    border: 1px solid;
 }
 
-code {
-  background-color: #f8f8f8;
+.separator {
+  border: 1px solid #E2E2E2;
+  padding-left: 20px;
+  border-left-width: 1px;
+  background-color: white;
+  height:100%;
+}
+
+.float-right {
+  float: right;
+}
+
+.thread {
+  padding: 10px;
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.page-content {
+  padding: 5px;
+}
+
+/** Header issue */
+body { padding-top: 70px; }
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
+}
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  height: 100%;
+}
+
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+[class*="col-"] {
+  background-color: orange;
+  background-color: white;
   border: 1px solid #ddd;
-  border-radius: 3px;
-  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
-  font-size: 12px;
-  margin: 0 2px;
-  padding: 0 5px;
-}
-
-h1, h2, h3, h4 {
-  font-weight: bold;
-  margin: 0 0 15px;
-  padding: 0;
-}
-
-h1 {
-  border-bottom: 1px solid #ddd;
-  font-size: 2.5em;
-  font-weight: bold;
-  margin: 0 0 15px;
-  padding: 0;
-}
-
-h2 {
-  border-bottom: 1px solid #eee;
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.5em;
-}
-
-h4 {
-  font-size: 1.2em;
-}
-
-p, ul {
-  margin: 15px 0;
-}
-
-ul {
-  padding-left: 30px;
-}
-
-.container-outer { overflow: scroll; }
-
-.nav-margin-left {
-  margin-left: 10px;
+  border: 1px solid rgba(86,61,124,.2);
 }

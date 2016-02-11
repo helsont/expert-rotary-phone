@@ -5,17 +5,68 @@ var App = React.createClass({
     return (
       <div>
         <NavBar />
-
-        <div className="row">
-          <ListWrapper listName="LEADS" />
-          <ListWrapper listName="IN PROGRESS" />
-          <ListWrapper listName="SCHEDULED" />
-          <ListWrapper listName="DONE" />
+        <div className="row row-eq-height">
+          <div className="col-xs-6 col-md-4 thread-list">
+            <ThreadsContainer />
+          </div>
+          <div className="col-xs-12 col-md-8 separator full-height-container">
+            <p className="lead">Jane Smith</p>
+            <ChatContainer />
+          </div>
         </div>
       </div>
     );
   }
 });
+
+var ThreadsContainer = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <Thread />
+      </div>
+    )
+  }
+});
+
+var Thread = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="row thread">
+          <b>Jane Smith</b><small className="float-right">2/11 at 5:46pm</small>
+          <br></br>
+          "I'm looking for an apartment..."
+        </div>
+      </div>
+    )
+  }
+})
+
+var ChatContainer = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <Message/>
+        <Message/>
+        <Message/>
+        <Message/>
+      </div>
+    )
+  }
+})
+
+var Message = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="row">
+          hello
+        </div>
+      </div>
+    )
+  }
+})
 
 var ListWrapper = React.createClass({
   render: function() {
@@ -50,60 +101,64 @@ var List = React.createClass({
   render: function() {
     return (
       <div>
-        <Card />
-        <Card />
+
 
       </div>
     );
   }
 });
 
-var Card = React.createClass({
-  componentDidMount: function() {
-    // When the component is added, turn it into a modal
-
-    $(this.refs.root).draggable();
-  },
-  getInitialState: function() {
-    return {
-      number: '917-555-555',
-      firstName: 'Jane',
-      lastName: 'Smith',
-      lastMessage: 'Thanks, I look forward to your response.',
-      date: 'Yesterday at 5:39pm'
-    };
-  },
-  render: function() {
-    return (
-      <div className="card cyan lighten-3" ref="root">
-        <div className="card-content white-text">
-          <span className="card-title">{this.state.firstName} {this.state.lastName}</span>
-          <p>{this.state.lastMessage}</p>
-          <p>{this.state.date}</p>
-        </div>
-        <div className="card-action">
-          <a href="#" className="light-blue-text">Open</a>
-          <a href="#" className="light-blue-text">Manage</a>
-        </div>
-      </div>
-    );
-  }
-})
-
 var NavBar = React.createClass({
   render: function() {
     return (
+      <div className="navbar navbar-default navbar-fixed-top">
+        <div className="container">
+          <div className="navbar-header">
+            <a href="../" className="navbar-brand">Bootswatch</a>
+            <button className="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+          </div>
+          <div className="navbar-collapse collapse" id="navbar-main">
+            <ul className="nav navbar-nav">
+              <li className="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span className="caret"></span></a>
+                <ul className="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="../default/">Default</a></li>
+                  <li className="divider"></li>
+                  <li><a href="../cerulean/">Cerulean</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="../help/">Help</a>
+              </li>
+              <li className="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Lumen <span className="caret"></span></a>
+                <ul className="dropdown-menu" aria-labelledby="download">
+                  <li><a href="http://jsfiddle.net/bootswatch/gqhenoox/">Open Sandbox</a></li>
+                  <li className="divider"></li>
+                  <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                  <li><a href="./bootstrap.css">bootstrap.css</a></li>
+                  <li className="divider"></li>
+                  <li><a href="./variables.less">variables.less</a></li>
+                  <li><a href="./bootswatch.less">bootswatch.less</a></li>
+                  <li className="divider"></li>
+                  <li><a href="./_variables.scss">_variables.scss</a></li>
+                  <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
+                </ul>
+              </li>
+            </ul>
 
-      <nav>
-        <div className="nav-wrapper light-blue darken-4">
-          <a href="#" className="brand-logo nav-margin-left"> Riley</a>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><a href="#">Message Center</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Ali Ahmadizadeh</a></li>
-          </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+              <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+            </ul>
+
+          </div>
         </div>
-      </nav>
+      </div>
     )
   }
 });
