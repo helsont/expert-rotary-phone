@@ -1,3 +1,6 @@
+var isNode = typeof module !== 'undefined' && module.exports
+  , React = isNode ? require('react') : window.React
+  , ReactDOM = isNode ? require('react') : window.ReactDOM
 
 var App = React.createClass({
 
@@ -509,7 +512,8 @@ var LikeButton = React.createClass({
   }
 });
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('main')
-);
+if (isNode) {
+  exports.App = App
+} else {
+  ReactDOM.render(<App name="John" />, document.getElementById('react-root'))
+}
