@@ -13,14 +13,18 @@ var App = React.createClass({
             <div className="col-xs-8 col-sm-8 col-md-6 col-lg-6 separator message-container">
               <MessageContainer />
             </div>
-            <div className="hidden-xs hidden-sm col-md-3 col-lg-3 separator">
-              <GreetingsContainer />
-              <QuestionsContainer />
+            <div className="hidden-xs hidden-sm col-md-3 col-lg-3 separator scrollable">
+              <LeadInfoContainer />
             </div>
           </div>
         </div>
       </div>
     );
+  },
+  componentDidMount: function() {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
   }
 });
 
@@ -28,8 +32,19 @@ var LeadInfoContainer = React.createClass({
   render: function() {
     return (
       <div>
-        <h2>Lead Info</h2>
-        <input type="text" className="style-4" value="Jane Smith"></input>
+        <ul className="nav nav-tabs info-tabs" role="tablist">
+          <li role="presentation" className="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Questions</a></li>
+          <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Lead Info</a></li>
+        </ul>
+
+        <div className="tab-content">
+          <div role="tabpanel" className="tab-pane active" id="home">
+            <QuestionsContainer />
+          </div>
+          <div role="tabpanel" className="tab-pane" id="profile">
+            <GreetingsContainer />
+          </div>
+        </div>
       </div>
     );
   },
@@ -40,16 +55,78 @@ var GreetingsContainer = React.createClass({
   render: function() {
     return (
       <div>
-        <h2>Greetings</h2>
+        <h2>Lead Info</h2>
         <hr></hr>
-        <ul className="list-group">
-          <li className="list-group-item">Im Alexi from David Elliman Realty, and I run our NYC branch.</li>
-          <li className="list-group-item"><i>No closing provided.</i></li>
-        </ul>
+
+        <div className="form-group">
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="First Name"></input>
+        </div>
+        <div className="form-group">
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Last Name"></input>
+        </div>
+        <div className="form-group">
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Budget"></input>
+        </div>
+        <div className="form-group">
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Moving To"></input>
+        </div>
+        <div className="form-group">
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Moving On"></input>
+        </div>
+        <div className="form-group">
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Beds"></input>
+        </div>
       </div>
     );
   },
   componentDidMount: resize
+});
+
+var Question = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="form-group">
+          <div className="input-group">
+            <span className="input-group-btn">
+              <button className="btn btn-default" type="button">Ask</button>
+            </span>
+            <textarea
+              className="form-control"
+              rows="1"
+              data-toggle="tooltip"
+              data-placement="top"
+              title={this.props.question}
+              placeholder={this.props.question}>
+            </textarea>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var Greeting = React.createClass({
+  render: function() {
+    return (
+      <div className="form-group">
+        <div className="input-group">
+          <span className="input-group-btn">
+            <button className="btn btn-default" type="button">Send</button>
+          </span>
+          <textarea
+            type="text"
+            className="form-control"
+            rows="2"
+            data-toggle="tooltip"
+            data-placement="top"
+            title={this.props.greeting}
+            value={this.props.greeting}
+            readOnly></textarea>
+        </div>
+      </div>
+    )
+  }
 });
 
 var QuestionsContainer = React.createClass({
@@ -59,12 +136,15 @@ var QuestionsContainer = React.createClass({
         <h2>Questions</h2>
         <hr></hr>
         <ul className="list-group">
-          <li className="list-group-item">Where are you looking to move to?</li>
-          <li className="list-group-item">What is your budget?</li>
-          <li className="list-group-item">Bedrooms? Bathrooms?</li>
-          <li className="list-group-item">Do you like pomegranates?</li>
-          <li className="list-group-item">Anything else I should I know?</li>
+          <Greeting greeting="I'm Alexi from David Elliman Realty, and I run our NYC branch."/>
+          <Question question="Where are you looking to move to?"/>
+          <Question question="What is your budget?"/>
+          <Question question="What is your budget?"/>
+          <Question question="Bedrooms? Bathrooms?"/>
+          <Question question="Are you interested in any other neighborhoods as well? (Find out which ones if yes)"/>
+          <Greeting greeting="Fantastic. I will get to work and if I have any other questions, I will be in touch asap. Have a great rest of your day!"/>
         </ul>
+
         <div className="btn-group btn-group-justified" role="group" aria-label="...">
           <div className="btn-group" role="group">
             <button type="button" className="btn btn-success">Connect Lead</button>
@@ -92,7 +172,12 @@ var ThreadsContainer = React.createClass({
 });
 
 function resize() {
-  var el = ReactDOM.findDOMNode(this).parentElement;
+  var node = ReactDOM.findDOMNode(this);
+  if (!node) {
+    return;
+  }
+  var el = node.parentElement;
+
   var y = $(window).height() - 70;
   $(el).css('height', y + 'px');
 }
@@ -142,7 +227,7 @@ var TextInput = React.createClass({
 var ChatContainer = React.createClass({
   render: function() {
     return (
-      <div>
+      <div className="chat-container scrollable">
         <Message/>
         <Message/>
         <Message/>
@@ -186,9 +271,18 @@ var Message = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="row">
-          hello
+        <div className="chat-message-outgoing">
+          hi
         </div>
+        <p className="text-left">Sent at 4:56pm.</p>
+
+        <div className="clear"></div>
+
+        <div className="chat-message-incoming">
+          incoming
+        </div>
+        <p className="text-right">Sent at 5:56pm.</p>
+        <div className="clear"></div>
       </div>
     )
   }
