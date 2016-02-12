@@ -5,13 +5,18 @@ var App = React.createClass({
     return (
       <div>
         <NavBar />
-        <div className="row row-eq-height">
-          <div className="col-xs-6 col-md-4 thread-list">
-            <ThreadsContainer />
-          </div>
-          <div className="col-xs-12 col-md-8 separator full-height-container">
-            <p className="lead">Jane Smith</p>
-            <ChatContainer />
+        <div className="container-fluid">
+          <div className="row row-eq-height">
+            <div className="col-xs-4 col-sm-4 col-md-3 col-lg-3 thread-list">
+              <ThreadsContainer />
+            </div>
+            <div className="col-xs-8 col-sm-8 col-md-6 col-lg-6 separator message-container">
+              <MessageContainer />
+            </div>
+            <div className="hidden-xs hidden-sm col-md-3 col-lg-3 separator">
+              <GreetingsContainer />
+              <QuestionsContainer />
+            </div>
           </div>
         </div>
       </div>
@@ -19,15 +24,78 @@ var App = React.createClass({
   }
 });
 
+var LeadInfoContainer = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <h2>Lead Info</h2>
+        <input type="text" className="style-4" value="Jane Smith"></input>
+      </div>
+    );
+  },
+  componentDidMount: resize
+});
+
+var GreetingsContainer = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <h2>Greetings</h2>
+        <hr></hr>
+        <ul className="list-group">
+          <li className="list-group-item">Im Alexi from David Elliman Realty, and I run our NYC branch.</li>
+          <li className="list-group-item"><i>No closing provided.</i></li>
+        </ul>
+      </div>
+    );
+  },
+  componentDidMount: resize
+});
+
+var QuestionsContainer = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <h2>Questions</h2>
+        <hr></hr>
+        <ul className="list-group">
+          <li className="list-group-item">Where are you looking to move to?</li>
+          <li className="list-group-item">What is your budget?</li>
+          <li className="list-group-item">Bedrooms? Bathrooms?</li>
+          <li className="list-group-item">Do you like pomegranates?</li>
+          <li className="list-group-item">Anything else I should I know?</li>
+        </ul>
+        <div className="btn-group btn-group-justified" role="group" aria-label="...">
+          <div className="btn-group" role="group">
+            <button type="button" className="btn btn-success">Connect Lead</button>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  componentDidMount: resize
+});
+
 var ThreadsContainer = React.createClass({
   render: function() {
     return (
       <div>
         <Thread />
+        <Thread />
+        <Thread />
+        <Thread />
+        <Thread />
       </div>
     )
-  }
+  },
+  componentDidMount: resize
 });
+
+function resize() {
+  var el = ReactDOM.findDOMNode(this).parentElement;
+  var y = $(window).height() - 70;
+  $(el).css('height', y + 'px');
+}
 
 var Thread = React.createClass({
   render: function() {
@@ -43,6 +111,34 @@ var Thread = React.createClass({
   }
 })
 
+var TextInput = React.createClass({
+  render: function() {
+    return (
+      <div className="message-text-area-container">
+        <div className="row">
+          <div className="col-md-10 no-border">
+            <textarea
+            className="message-text-area"
+            placeholder="Type a message here..."
+            defaultValue="Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros."
+            ></textarea>
+          </div>
+          <div className="col-md-2 no-border">
+            <button className="btn btn-default message-text-area">Send</button>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  componentDidMount: function() {
+    return;
+    // var el = ReactDOM.findDOMNode(this);
+    // var parent = el.parentElement.parentElement;
+    // var input = el.childNodes[0];
+    // $(input).css('width', $(parent).width() - 20 + 'px');
+  }
+})
+
 var ChatContainer = React.createClass({
   render: function() {
     return (
@@ -51,6 +147,36 @@ var ChatContainer = React.createClass({
         <Message/>
         <Message/>
         <Message/>
+      </div>
+    )
+  }
+})
+
+var MessageContainer = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="message-list">
+          <LeadAttributes/>
+          <div>
+            <ChatContainer/>
+          </div>
+        </div>
+        <TextInput/>
+      </div>
+    )
+  },
+  componentDidMount: resize
+});
+
+var LeadAttributes = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <h2>Jane Smith</h2>
+        <span className="label label-success">Active Lead</span>
+        <span className="label label-danger">Primary</span>
+        <hr></hr>
       </div>
     )
   }
@@ -114,7 +240,7 @@ var NavBar = React.createClass({
       <div className="navbar navbar-default navbar-fixed-top">
         <div className="container">
           <div className="navbar-header">
-            <a href="../" className="navbar-brand">Bootswatch</a>
+            <a href="../" className="navbar-brand">Riley</a>
             <button className="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
@@ -123,37 +249,24 @@ var NavBar = React.createClass({
           </div>
           <div className="navbar-collapse collapse" id="navbar-main">
             <ul className="nav navbar-nav">
+              <li><a href="#" target="_blank">Dashboard</a></li>
+              <li><a href="#" target="_blank">Demo Users</a></li>
+              <li><a href="#" target="_blank">Waiting List</a></li>
+              <li><a href="#" target="_blank">Message Center</a></li>
               <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span className="caret"></span></a>
-                <ul className="dropdown-menu" aria-labelledby="themes">
-                  <li><a href="../default/">Default</a></li>
-                  <li className="divider"></li>
-                  <li><a href="../cerulean/">Cerulean</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="../help/">Help</a>
-              </li>
-              <li className="dropdown">
-                <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Lumen <span className="caret"></span></a>
+                <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Archives <span className="caret"></span></a>
                 <ul className="dropdown-menu" aria-labelledby="download">
                   <li><a href="http://jsfiddle.net/bootswatch/gqhenoox/">Open Sandbox</a></li>
                   <li className="divider"></li>
                   <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
                   <li><a href="./bootstrap.css">bootstrap.css</a></li>
-                  <li className="divider"></li>
-                  <li><a href="./variables.less">variables.less</a></li>
-                  <li><a href="./bootswatch.less">bootswatch.less</a></li>
-                  <li className="divider"></li>
-                  <li><a href="./_variables.scss">_variables.scss</a></li>
-                  <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
                 </ul>
               </li>
             </ul>
 
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
-              <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+              <li><a href="http://builtwithbootstrap.com/" target="_blank">Settings</a></li>
+              <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">Daniel</a></li>
             </ul>
 
           </div>
