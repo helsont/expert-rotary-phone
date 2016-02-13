@@ -1,6 +1,6 @@
 import React from 'react';
 
-class LeadInfoContainer extends React.Component {
+class ThreadDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {likesCount: 0};
@@ -44,4 +44,4 @@ class LeadInfoContainer extends React.Component {
     }
 }
 
-export default LeadInfoContainer;
+export default ThreadDetail;
